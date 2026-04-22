@@ -10,8 +10,9 @@ export default async function WishlistPage({
   return (
     <div className="flex flex-col">
       <PageHeader
-        title="Wishlist"
-        subtitle="Things you want, someday or soon."
+        eyebrow="Wishlist"
+        title="Little wants, kept close."
+        subtitle="Things you'd love, someday or soon."
       />
       <WishlistView listParam={list} />
     </div>

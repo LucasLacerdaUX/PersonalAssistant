@@ -3,13 +3,13 @@
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Mail, Sparkles } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { getSupabaseBrowser } from '@/lib/supabase/browser';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Sprout } from '@/components/shell/logo';
 
 export default function LoginForm() {
   const params = useSearchParams();
@@ -62,30 +62,32 @@ export default function LoginForm() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full max-w-sm"
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="relative z-10 w-full max-w-sm"
     >
-      <Card className="border-border/60 shadow-xl backdrop-blur-sm bg-card/80">
-        <CardHeader className="text-center space-y-2">
-          <div className="flex items-center justify-center gap-2">
-            <Sparkles className="size-5 text-amber-500" />
-            <span className="font-serif text-lg">Comprinhas</span>
+      <div className="rounded-3xl bg-card/85 backdrop-blur-xl p-7 ring-1 ring-foreground/[0.06] shadow-[var(--shadow-lift)]">
+        <div className="flex flex-col items-center text-center space-y-3 pb-5">
+          <div className="size-12 rounded-2xl bg-primary/12 text-primary grid place-items-center ring-1 ring-primary/20">
+            <Sprout className="size-7" />
           </div>
-          <CardTitle className="font-serif text-2xl font-normal">
-            Welcome back
-          </CardTitle>
-          <p className="text-sm text-muted-foreground">
-            Your wishlist, plans, and notes — signed in.
-          </p>
-        </CardHeader>
-        <CardContent className="space-y-4">
+          <div className="space-y-1.5">
+            <h1 className="font-display text-[28px] tracking-[-0.025em] font-medium leading-tight">
+              Welcome back
+            </h1>
+            <p className="text-[13.5px] text-muted-foreground">
+              Your wishlist, plans, and notes — in one quiet place.
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-4">
           <Button
             onClick={signInWithGoogle}
             disabled={pending}
             variant="outline"
-            className="w-full h-11"
+            className="w-full h-11 rounded-xl"
           >
             <GoogleIcon />
             Continue with Google
@@ -93,22 +95,24 @@ export default function LoginForm() {
 
           <div className="relative">
             <Separator />
-            <span className="absolute left-1/2 -translate-x-1/2 -top-2.5 bg-card px-2 text-xs text-muted-foreground">
+            <span className="absolute left-1/2 -translate-x-1/2 -top-2.5 bg-card px-2.5 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
               or
             </span>
           </div>
 
           {sent ? (
             <div className="text-center space-y-2 py-2">
-              <Mail className="size-6 text-emerald-500 mx-auto" />
-              <p className="text-sm">
+              <div className="mx-auto size-10 rounded-full bg-success/15 text-success grid place-items-center">
+                <Mail className="size-5" />
+              </div>
+              <p className="text-[13.5px]">
                 Check <span className="font-medium">{email}</span> for a login link.
               </p>
             </div>
           ) : (
             <form onSubmit={sendMagicLink} className="space-y-3">
               <div className="space-y-1.5">
-                <Label htmlFor="email" className="text-xs">
+                <Label htmlFor="email" className="text-xs text-muted-foreground">
                   Email
                 </Label>
                 <Input
@@ -118,20 +122,20 @@ export default function LoginForm() {
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-11"
+                  className="h-11 rounded-xl"
                 />
               </div>
-              <Button type="submit" disabled={pending} className="w-full h-11">
+              <Button type="submit" disabled={pending} className="w-full h-11 rounded-xl">
                 Send magic link
               </Button>
             </form>
           )}
 
           {error && (
-            <p className="text-sm text-destructive text-center">{error}</p>
+            <p className="text-[13px] text-destructive text-center">{error}</p>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </motion.div>
   );
 }

@@ -10,6 +10,7 @@ import { useCreateNote, useDeleteNote, useNotes } from '@/lib/hooks/use-notes';
 import { useTags } from '@/lib/hooks/use-tags';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { EmptyDoodle } from '@/components/shell/empty-doodle';
 import { NoteEditor } from './note-editor';
 
 export function NotesLayout({
@@ -58,8 +59,8 @@ export function NotesLayout({
   const showEditorOnly = !!selected && typeof window !== 'undefined';
 
   return (
-    <div className="flex-1 min-h-0 px-4 md:px-8 pb-8">
-      <div className="grid md:grid-cols-[280px_1fr] gap-4 md:gap-6 h-full max-w-6xl mx-auto md:mx-0">
+    <div className="flex-1 min-h-0 px-4 md:px-8 pb-20 md:pb-10">
+      <div className="grid md:grid-cols-[300px_1fr] gap-5 md:gap-8 h-full max-w-6xl mx-auto md:mx-0">
         <div
           className={cn(
             'flex flex-col gap-3',
@@ -67,16 +68,16 @@ export function NotesLayout({
           )}
         >
           <form onSubmit={onSearch} className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
             <Input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search notes…"
-              className="pl-9 rounded-full"
+              className="pl-10 h-10 rounded-full bg-muted/60 border-0"
             />
           </form>
 
-          <Button onClick={newNote} disabled={create.isPending} className="rounded-full">
+          <Button onClick={newNote} disabled={create.isPending} className="rounded-full h-10">
             <Plus className="size-4" /> New note
           </Button>
 
@@ -100,24 +101,24 @@ export function NotesLayout({
                     key={note.id}
                     href={`/notes?id=${note.id}${query ? `&q=${encodeURIComponent(query)}` : ''}`}
                     className={cn(
-                      'block rounded-xl border border-transparent p-3 transition-colors',
+                      'block rounded-xl p-3 transition-all',
                       active
-                        ? 'bg-card border-border/60 shadow-sm'
-                        : 'hover:bg-muted/60',
+                        ? 'bg-card ring-1 ring-foreground/[0.06] shadow-[var(--shadow-paper)]'
+                        : 'hover:bg-muted',
                     )}
                   >
-                    <p className="text-sm font-medium truncate">
+                    <p className="text-[14px] font-medium truncate tracking-[-0.005em]">
                       {note.title.trim() || 'Untitled'}
                     </p>
-                    <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
+                    <p className="text-[12px] text-muted-foreground line-clamp-2 mt-0.5">
                       {preview}
                     </p>
                     <div className="flex items-center gap-2 mt-1.5">
-                      <span className="text-[10px] text-muted-foreground">
+                      <span className="text-[10.5px] text-muted-foreground tabular-nums">
                         {format(parseISO(note.updated_at), 'MMM d')}
                       </span>
                       {tag && (
-                        <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
+                        <span className="inline-flex items-center gap-1 text-[10.5px] text-muted-foreground">
                           <span
                             className="size-1.5 rounded-full"
                             style={{ background: tag.color }}
@@ -157,11 +158,18 @@ export function NotesLayout({
               />
             </div>
           ) : (
-            <div className="h-full grid place-items-center rounded-2xl border border-dashed border-border/60 dot-grid">
+            <div className="h-full grid place-items-center rounded-3xl bg-muted/30 paper-dots">
               <div className="text-center">
-                <p className="font-serif text-xl">Pick a note.</p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Or hit <kbd className="px-1.5 py-0.5 rounded bg-muted text-xs">New note</kbd> to start one.
+                <EmptyDoodle className="mx-auto mb-3 w-32 text-primary/70" />
+                <p className="font-display text-[22px] tracking-[-0.02em]">
+                  Pick a note.
+                </p>
+                <p className="text-[13px] text-muted-foreground mt-1.5">
+                  Or tap{' '}
+                  <kbd className="px-1.5 py-0.5 rounded bg-card ring-1 ring-foreground/10 text-[11px] font-mono">
+                    New note
+                  </kbd>{' '}
+                  to start one.
                 </p>
               </div>
             </div>

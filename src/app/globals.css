@@ -7,10 +7,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-serif: var(--font-serif);
-  --font-mono: var(--font-mono);
-  --font-heading: var(--font-serif);
+
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: var(--font-display);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -28,6 +30,8 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -40,109 +44,189 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-raised: var(--surface-raised);
+
+  --color-chip-sage: var(--chip-sage);
+  --color-chip-sage-ink: var(--chip-sage-ink);
+  --color-chip-butter: var(--chip-butter);
+  --color-chip-butter-ink: var(--chip-butter-ink);
+  --color-chip-clay: var(--chip-clay);
+  --color-chip-clay-ink: var(--chip-clay-ink);
+  --color-chip-periwinkle: var(--chip-periwinkle);
+  --color-chip-periwinkle-ink: var(--chip-periwinkle-ink);
+  --color-chip-lilac: var(--chip-lilac);
+  --color-chip-lilac-ink: var(--chip-lilac-ink);
+  --color-chip-sky: var(--chip-sky);
+  --color-chip-sky-ink: var(--chip-sky-ink);
+  --color-chip-rose: var(--chip-rose);
+  --color-chip-rose-ink: var(--chip-rose-ink);
+
+  --radius-sm: calc(var(--radius) * 0.55);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-xl: calc(var(--radius) * 1.35);
+  --radius-2xl: calc(var(--radius) * 1.75);
   --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-4xl: calc(var(--radius) * 2.7);
+
+  --shadow-paper:
+    0 1px 2px oklch(0.22 0.04 158 / 0.04),
+    0 1px 0.5px oklch(0.22 0.04 158 / 0.03);
+  --shadow-float:
+    0 2px 4px oklch(0.22 0.04 158 / 0.04),
+    0 6px 18px oklch(0.22 0.04 158 / 0.06);
+  --shadow-lift:
+    0 1px 2px oklch(0.22 0.04 158 / 0.05),
+    0 14px 40px oklch(0.22 0.04 158 / 0.1),
+    0 4px 10px oklch(0.22 0.04 158 / 0.05);
 }
 
 /* ──────────────────────────────────────────────
-   Light — warm, creamy, colorful
+   Light — morning garden
+   near-white paper tinted toward sage, moss primary,
+   candy accents for tags and section moods.
    ────────────────────────────────────────────── */
 :root {
-  --background: oklch(0.99 0.012 85);
-  --foreground: oklch(0.22 0.02 280);
+  --surface-sunken: oklch(0.972 0.01 152);
+  --surface: oklch(0.984 0.007 148);
+  --surface-raised: oklch(0.998 0.003 148);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.02 280);
+  --background: var(--surface);
+  --foreground: oklch(0.24 0.028 162);
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.02 280);
+  --card: var(--surface-raised);
+  --card-foreground: oklch(0.24 0.028 162);
 
-  --primary: oklch(0.62 0.22 25);          /* coral/pink */
-  --primary-foreground: oklch(0.99 0 0);
+  --popover: oklch(0.998 0.003 148);
+  --popover-foreground: oklch(0.24 0.028 162);
 
-  --secondary: oklch(0.95 0.03 75);        /* warm cream */
-  --secondary-foreground: oklch(0.25 0.02 280);
+  --primary: oklch(0.56 0.1 158);          /* moss sage */
+  --primary-foreground: oklch(0.995 0.005 148);
 
-  --muted: oklch(0.96 0.012 75);
-  --muted-foreground: oklch(0.52 0.03 280);
+  --secondary: oklch(0.94 0.02 150);       /* pale sage surface */
+  --secondary-foreground: oklch(0.28 0.03 160);
 
-  --accent: oklch(0.92 0.09 80);           /* warm mustard accent */
-  --accent-foreground: oklch(0.25 0.05 280);
+  --muted: oklch(0.958 0.012 150);
+  --muted-foreground: oklch(0.5 0.028 158);
 
-  --destructive: oklch(0.6 0.23 20);
+  --accent: oklch(0.92 0.055 90);          /* warm butter tint */
+  --accent-foreground: oklch(0.32 0.06 72);
 
-  --border: oklch(0.9 0.02 75);
-  --input: oklch(0.92 0.015 75);
-  --ring: oklch(0.62 0.22 25);
+  --destructive: oklch(0.58 0.19 25);
 
-  --chart-1: oklch(0.72 0.17 30);          /* coral */
-  --chart-2: oklch(0.74 0.15 150);         /* mint */
-  --chart-3: oklch(0.72 0.17 270);         /* violet */
-  --chart-4: oklch(0.78 0.15 80);          /* butter */
-  --chart-5: oklch(0.7 0.15 330);          /* magenta */
+  --success: oklch(0.58 0.11 160);
+  --success-foreground: oklch(0.995 0.005 148);
 
-  --radius: 0.875rem;
+  --border: oklch(0.9 0.015 150);
+  --input: oklch(0.93 0.012 150);
+  --ring: oklch(0.56 0.1 158);
 
-  --sidebar: oklch(0.985 0.015 80);
-  --sidebar-foreground: oklch(0.22 0.02 280);
-  --sidebar-primary: oklch(0.62 0.22 25);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.95 0.05 75);
-  --sidebar-accent-foreground: oklch(0.22 0.02 280);
-  --sidebar-border: oklch(0.9 0.02 75);
-  --sidebar-ring: oklch(0.62 0.22 25);
+  --chart-1: oklch(0.68 0.11 158);         /* sage */
+  --chart-2: oklch(0.82 0.14 90);          /* butter */
+  --chart-3: oklch(0.72 0.11 265);         /* periwinkle */
+  --chart-4: oklch(0.74 0.12 50);          /* clay */
+  --chart-5: oklch(0.76 0.1 320);          /* lilac */
+
+  /* Candy chips — backgrounds light, ink dark for AA+ text */
+  --chip-sage:       oklch(0.9 0.04 155);
+  --chip-sage-ink:   oklch(0.36 0.07 156);
+  --chip-butter:     oklch(0.93 0.1 95);
+  --chip-butter-ink: oklch(0.4 0.09 72);
+  --chip-clay:       oklch(0.89 0.07 50);
+  --chip-clay-ink:   oklch(0.4 0.1 44);
+  --chip-periwinkle: oklch(0.89 0.055 262);
+  --chip-periwinkle-ink: oklch(0.38 0.1 266);
+  --chip-lilac:      oklch(0.9 0.05 315);
+  --chip-lilac-ink:  oklch(0.4 0.09 312);
+  --chip-sky:        oklch(0.9 0.045 220);
+  --chip-sky-ink:    oklch(0.38 0.08 228);
+  --chip-rose:       oklch(0.9 0.06 18);
+  --chip-rose-ink:   oklch(0.4 0.11 20);
+
+  --radius: 1rem;
+
+  --sidebar: var(--surface-sunken);
+  --sidebar-foreground: oklch(0.24 0.028 162);
+  --sidebar-primary: oklch(0.56 0.1 158);
+  --sidebar-primary-foreground: oklch(0.995 0.005 148);
+  --sidebar-accent: oklch(0.94 0.025 150);
+  --sidebar-accent-foreground: oklch(0.22 0.03 160);
+  --sidebar-border: oklch(0.9 0.015 150);
+  --sidebar-ring: oklch(0.56 0.1 158);
 }
 
 /* ──────────────────────────────────────────────
-   Dark — deep plum/indigo, colorful accents kept
+   Dark — midnight garden
+   deep pine base, brighter moss primary, jewel chips.
    ────────────────────────────────────────────── */
 .dark {
-  --background: oklch(0.16 0.02 295);
-  --foreground: oklch(0.97 0.01 80);
+  --surface-sunken: oklch(0.15 0.015 165);
+  --surface: oklch(0.175 0.018 163);
+  --surface-raised: oklch(0.22 0.02 163);
 
-  --card: oklch(0.21 0.025 290);
-  --card-foreground: oklch(0.97 0.01 80);
+  --background: var(--surface);
+  --foreground: oklch(0.96 0.012 142);
 
-  --popover: oklch(0.22 0.025 290);
-  --popover-foreground: oklch(0.97 0.01 80);
+  --card: var(--surface-raised);
+  --card-foreground: oklch(0.96 0.012 142);
 
-  --primary: oklch(0.72 0.2 25);
-  --primary-foreground: oklch(0.15 0.02 290);
+  --popover: oklch(0.24 0.022 163);
+  --popover-foreground: oklch(0.96 0.012 142);
 
-  --secondary: oklch(0.27 0.03 285);
-  --secondary-foreground: oklch(0.97 0.01 80);
+  --primary: oklch(0.76 0.12 158);
+  --primary-foreground: oklch(0.15 0.025 160);
 
-  --muted: oklch(0.25 0.025 290);
-  --muted-foreground: oklch(0.72 0.03 80);
+  --secondary: oklch(0.28 0.022 160);
+  --secondary-foreground: oklch(0.96 0.012 142);
 
-  --accent: oklch(0.3 0.08 80);
-  --accent-foreground: oklch(0.97 0.02 80);
+  --muted: oklch(0.24 0.018 160);
+  --muted-foreground: oklch(0.72 0.025 148);
 
-  --destructive: oklch(0.7 0.2 22);
+  --accent: oklch(0.32 0.055 90);
+  --accent-foreground: oklch(0.9 0.08 90);
 
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.72 0.2 25);
+  --destructive: oklch(0.68 0.2 22);
 
-  --chart-1: oklch(0.76 0.18 30);
-  --chart-2: oklch(0.78 0.16 150);
-  --chart-3: oklch(0.76 0.18 270);
-  --chart-4: oklch(0.82 0.16 80);
-  --chart-5: oklch(0.74 0.17 330);
+  --success: oklch(0.76 0.11 158);
+  --success-foreground: oklch(0.15 0.025 160);
 
-  --sidebar: oklch(0.19 0.025 295);
-  --sidebar-foreground: oklch(0.97 0.01 80);
-  --sidebar-primary: oklch(0.72 0.2 25);
-  --sidebar-primary-foreground: oklch(0.15 0.02 290);
-  --sidebar-accent: oklch(0.27 0.04 285);
-  --sidebar-accent-foreground: oklch(0.97 0.01 80);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.72 0.2 25);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.76 0.12 158);
+
+  --chart-1: oklch(0.76 0.13 158);
+  --chart-2: oklch(0.85 0.14 90);
+  --chart-3: oklch(0.78 0.12 265);
+  --chart-4: oklch(0.8 0.13 50);
+  --chart-5: oklch(0.8 0.11 320);
+
+  /* Dark chips — deeper tinted backgrounds, luminous ink */
+  --chip-sage:       oklch(0.32 0.05 156);
+  --chip-sage-ink:   oklch(0.9 0.075 158);
+  --chip-butter:     oklch(0.36 0.06 88);
+  --chip-butter-ink: oklch(0.93 0.11 94);
+  --chip-clay:       oklch(0.34 0.07 48);
+  --chip-clay-ink:   oklch(0.9 0.1 52);
+  --chip-periwinkle: oklch(0.34 0.06 264);
+  --chip-periwinkle-ink: oklch(0.9 0.08 262);
+  --chip-lilac:      oklch(0.34 0.06 314);
+  --chip-lilac-ink:  oklch(0.9 0.08 314);
+  --chip-sky:        oklch(0.32 0.05 222);
+  --chip-sky-ink:    oklch(0.9 0.07 220);
+  --chip-rose:       oklch(0.34 0.07 18);
+  --chip-rose-ink:   oklch(0.9 0.09 18);
+
+  --sidebar: var(--surface-sunken);
+  --sidebar-foreground: oklch(0.96 0.012 142);
+  --sidebar-primary: oklch(0.76 0.12 158);
+  --sidebar-primary-foreground: oklch(0.15 0.025 160);
+  --sidebar-accent: oklch(0.26 0.025 160);
+  --sidebar-accent-foreground: oklch(0.96 0.012 142);
+  --sidebar-border: oklch(1 0 0 / 9%);
+  --sidebar-ring: oklch(0.76 0.12 158);
 }
 
 @layer base {
@@ -151,21 +235,148 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv11", "ss03";
   }
   html {
     @apply font-sans;
   }
-  .font-serif {
-    font-family: var(--font-serif), ui-serif, Georgia, serif;
-    font-feature-settings: "ss01", "ss02";
+  .font-display {
+    font-family: var(--font-display);
+    font-feature-settings: "ss01", "ss02", "ss03";
+    letter-spacing: -0.015em;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 24%, transparent);
+    color: var(--foreground);
   }
 }
 
-/* A soft dotted backdrop used on empty states */
-.dot-grid {
-  background-image: radial-gradient(
-    oklch(0.5 0.02 280 / 0.15) 1px,
-    transparent 1px
-  );
-  background-size: 18px 18px;
+/* ──────────────────────────────────────────────
+   Textures — soft grid used on empty-state canvases.
+   A quiet cross pattern; reads as notebook paper.
+   ────────────────────────────────────────────── */
+.paper-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--foreground) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 7%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
 }
+
+.paper-dots {
+  background-image: radial-gradient(
+    color-mix(in oklch, var(--foreground) 18%, transparent) 1px,
+    transparent 1.3px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at center, black 45%, transparent 90%);
+}
+
+/* ──────────────────────────────────────────────
+   Chip utility — used for tags and section accents.
+   Pair .chip with a modifier: .chip-sage, .chip-butter…
+   ────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding-inline: 0.5rem;
+  padding-block: 0.125rem;
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  border-radius: 999px;
+  background: var(--chip-bg, var(--chip-sage));
+  color: var(--chip-fg, var(--chip-sage-ink));
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+
+/* ──────────────────────────────────────────────
+   Dashboard hero — warm sage gradient with a
+   lovingly hand-painted leaf palette. Scoped vars
+   so the illustration tints consistently in both
+   themes.
+   ────────────────────────────────────────────── */
+.hero-card {
+  --hero-ink: oklch(0.34 0.06 155);
+  --hero-ink-soft: oklch(0.42 0.05 158);
+  --hero-pill: oklch(0.995 0.005 148 / 0.7);
+  --hero-pill-ring: oklch(0.38 0.07 158 / 0.14);
+
+  --leaf-ink: oklch(0.4 0.08 158);
+  --leaf-fill: oklch(0.82 0.08 148);
+  --leaf-fill-strong: oklch(0.72 0.11 150);
+
+  --mascot-body: oklch(0.78 0.12 140);
+  --mascot-leaf: oklch(0.62 0.14 148);
+  --mascot-leaf-strong: oklch(0.56 0.14 148);
+  --mascot-cheek: oklch(0.84 0.07 30 / 0.75);
+  --heart: oklch(0.78 0.13 18);
+
+  --pot-fill: oklch(0.78 0.07 50);
+  --pot-ink: oklch(0.42 0.09 40);
+
+  --daisy-petal: oklch(0.99 0.02 90);
+  --daisy-center: oklch(0.85 0.12 85);
+
+  background:
+    radial-gradient(120% 80% at 20% 0%, oklch(0.96 0.05 95 / 0.55), transparent 55%),
+    radial-gradient(110% 120% at 90% 100%, oklch(0.9 0.07 145 / 0.65), transparent 60%),
+    linear-gradient(180deg, oklch(0.98 0.02 95) 0%, oklch(0.95 0.04 148) 100%);
+}
+
+.dark .hero-card {
+  --hero-ink: oklch(0.94 0.03 142);
+  --hero-ink-soft: oklch(0.78 0.03 148);
+  --hero-pill: oklch(0.24 0.03 160 / 0.55);
+  --hero-pill-ring: oklch(0.9 0.04 148 / 0.18);
+
+  --leaf-ink: oklch(0.8 0.07 148);
+  --leaf-fill: oklch(0.42 0.08 150);
+  --leaf-fill-strong: oklch(0.5 0.1 148);
+
+  --mascot-body: oklch(0.6 0.12 145);
+  --mascot-leaf: oklch(0.5 0.12 148);
+  --mascot-leaf-strong: oklch(0.42 0.1 148);
+  --mascot-cheek: oklch(0.7 0.1 22 / 0.7);
+  --heart: oklch(0.72 0.13 18);
+
+  --pot-fill: oklch(0.48 0.08 48);
+  --pot-ink: oklch(0.78 0.09 44);
+
+  --daisy-petal: oklch(0.92 0.03 88);
+  --daisy-center: oklch(0.78 0.13 85);
+
+  background:
+    radial-gradient(120% 80% at 20% 0%, oklch(0.35 0.05 95 / 0.35), transparent 55%),
+    radial-gradient(110% 120% at 90% 100%, oklch(0.3 0.05 148 / 0.55), transparent 60%),
+    linear-gradient(180deg, oklch(0.22 0.02 148) 0%, oklch(0.17 0.02 148) 100%);
+}
+
+/* Gentle breathing for ambient illustrations — capped small and slow. */
+@keyframes doodle-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.88; }
+  50%      { transform: scale(1.04); opacity: 1; }
+}
+
+.doodle-breathe {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: doodle-breathe 4.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doodle-breathe {
+    animation: none;
+  }
+}
+
+.chip-sage       { --chip-bg: var(--chip-sage);       --chip-fg: var(--chip-sage-ink); }
+.chip-butter     { --chip-bg: var(--chip-butter);     --chip-fg: var(--chip-butter-ink); }
+.chip-clay       { --chip-bg: var(--chip-clay);       --chip-fg: var(--chip-clay-ink); }
+.chip-periwinkle { --chip-bg: var(--chip-periwinkle); --chip-fg: var(--chip-periwinkle-ink); }
+.chip-lilac      { --chip-bg: var(--chip-lilac);      --chip-fg: var(--chip-lilac-ink); }
+.chip-sky        { --chip-bg: var(--chip-sky);        --chip-fg: var(--chip-sky-ink); }
+.chip-rose       { --chip-bg: var(--chip-rose);       --chip-fg: var(--chip-rose-ink); }

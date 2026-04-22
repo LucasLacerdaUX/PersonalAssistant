@@ -68,17 +68,17 @@ export function NoteEditor({
   }, [title, body, tagId, note.id]);
 
   return (
-    <div className="flex flex-col gap-3 h-full rounded-2xl border border-border/60 bg-card p-4 md:p-6">
+    <div className="flex flex-col gap-3 h-full rounded-3xl bg-card p-5 md:p-7 ring-1 ring-foreground/[0.06] shadow-[var(--shadow-paper)]">
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
-        className="border-0 shadow-none focus-visible:ring-0 px-0 font-serif text-2xl md:text-3xl h-auto"
+        className="border-0 shadow-none focus-visible:ring-0 px-0 font-display text-[28px] md:text-[34px] tracking-[-0.025em] h-auto font-medium"
       />
 
       <div className="flex flex-wrap items-center gap-2">
         <Select value={tagId} onValueChange={(v) => v && setTagId(v)}>
-          <SelectTrigger className="h-8 w-auto text-xs rounded-full">
+          <SelectTrigger className="h-8 w-auto text-xs rounded-full bg-muted/60 border-0">
             <SelectValue placeholder="No tag" />
           </SelectTrigger>
           <SelectContent>
@@ -92,7 +92,7 @@ export function NoteEditor({
         </Select>
 
         <div className="ml-auto flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">
+          <span className="text-[11px] text-muted-foreground tabular-nums min-w-[3ch]">
             {saving === 'saving'
               ? 'Saving…'
               : saving === 'saved'
@@ -117,7 +117,7 @@ export function NoteEditor({
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Dump it out. Markdown welcome."
-          className="flex-1 min-h-[50vh] md:min-h-[55vh] resize-none border-0 shadow-none focus-visible:ring-0 px-0 font-mono text-sm leading-relaxed"
+          className="flex-1 min-h-[50vh] md:min-h-[55vh] resize-none border-0 shadow-none focus-visible:ring-0 px-0 font-mono text-[13px] leading-[1.7]"
         />
       ) : (
         <div className="flex-1 min-h-[50vh] md:min-h-[55vh] prose-content overflow-y-auto">
@@ -147,12 +147,14 @@ function ViewToggle({
   onChange: (v: 'write' | 'preview') => void;
 }) {
   return (
-    <div className="inline-flex items-center rounded-full border border-border/60 p-0.5 text-xs">
+    <div className="inline-flex items-center rounded-full bg-muted p-0.5 text-xs">
       <button
         onClick={() => onChange('write')}
         className={cn(
           'rounded-full px-2.5 py-1 transition-colors inline-flex items-center gap-1',
-          view === 'write' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground',
+          view === 'write'
+            ? 'bg-card text-foreground shadow-[var(--shadow-paper)] ring-1 ring-foreground/[0.06]'
+            : 'text-muted-foreground',
         )}
       >
         <Pencil className="size-3" />
@@ -162,7 +164,9 @@ function ViewToggle({
         onClick={() => onChange('preview')}
         className={cn(
           'rounded-full px-2.5 py-1 transition-colors inline-flex items-center gap-1',
-          view === 'preview' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground',
+          view === 'preview'
+            ? 'bg-card text-foreground shadow-[var(--shadow-paper)] ring-1 ring-foreground/[0.06]'
+            : 'text-muted-foreground',
         )}
       >
         <Eye className="size-3" />
@@ -174,18 +178,18 @@ function ViewToggle({
 
 /* Minimal prose styles via components — avoids pulling in @tailwindcss/typography. */
 const markdownComponents: Parameters<typeof ReactMarkdown>[0]['components'] = {
-  h1: (props) => <h1 className="font-serif text-2xl mt-4 mb-2" {...props} />,
-  h2: (props) => <h2 className="font-serif text-xl mt-4 mb-2" {...props} />,
-  h3: (props) => <h3 className="font-serif text-lg mt-3 mb-1" {...props} />,
-  p: (props) => <p className="my-2 leading-relaxed text-sm" {...props} />,
-  ul: (props) => <ul className="list-disc pl-5 my-2 text-sm" {...props} />,
-  ol: (props) => <ol className="list-decimal pl-5 my-2 text-sm" {...props} />,
-  li: (props) => <li className="my-1" {...props} />,
+  h1: (props) => <h1 className="font-display text-[1.75rem] tracking-[-0.02em] mt-5 mb-2 font-medium" {...props} />,
+  h2: (props) => <h2 className="font-display text-[1.4rem] tracking-[-0.02em] mt-5 mb-2 font-medium" {...props} />,
+  h3: (props) => <h3 className="font-display text-[1.15rem] tracking-[-0.015em] mt-4 mb-1.5 font-medium" {...props} />,
+  p: (props) => <p className="my-2.5 leading-[1.7] text-[14px]" {...props} />,
+  ul: (props) => <ul className="list-disc pl-5 my-2.5 text-[14px] space-y-1" {...props} />,
+  ol: (props) => <ol className="list-decimal pl-5 my-2.5 text-[14px] space-y-1" {...props} />,
+  li: (props) => <li className="leading-[1.7]" {...props} />,
   code: ({ className, children, ...rest }) => {
     const isBlock = className?.includes('language-');
     if (isBlock) {
       return (
-        <pre className="rounded-lg bg-muted p-3 overflow-x-auto text-xs my-3">
+        <pre className="rounded-xl bg-muted/70 p-3.5 overflow-x-auto text-[12px] my-3 leading-relaxed">
           <code className={className} {...rest}>
             {children}
           </code>
@@ -194,7 +198,7 @@ const markdownComponents: Parameters<typeof ReactMarkdown>[0]['components'] = {
     }
     return (
       <code
-        className="rounded bg-muted px-1.5 py-0.5 text-[0.85em] font-mono"
+        className="rounded bg-muted px-1.5 py-0.5 text-[0.86em] font-mono"
         {...rest}
       >
         {children}
@@ -203,24 +207,24 @@ const markdownComponents: Parameters<typeof ReactMarkdown>[0]['components'] = {
   },
   blockquote: (props) => (
     <blockquote
-      className="border-l-2 border-primary/50 pl-3 my-3 italic text-muted-foreground text-sm"
+      className="my-3 rounded-xl bg-muted/50 px-4 py-2.5 text-muted-foreground italic text-[14px] leading-[1.7]"
       {...props}
     />
   ),
   a: (props) => (
     <a
-      className="text-primary underline underline-offset-2"
+      className="text-primary underline underline-offset-[3px] decoration-primary/30 hover:decoration-primary transition-colors"
       target="_blank"
       rel="noopener noreferrer"
       {...props}
     />
   ),
-  hr: () => <hr className="my-4 border-border/60" />,
+  hr: () => <hr className="my-5 border-border" />,
   table: (props) => (
-    <div className="overflow-x-auto my-3">
-      <table className="w-full text-sm border-collapse" {...props} />
+    <div className="overflow-x-auto my-3 rounded-lg ring-1 ring-border">
+      <table className="w-full text-[13px] border-collapse" {...props} />
     </div>
   ),
-  th: (props) => <th className="text-left border-b border-border px-2 py-1" {...props} />,
-  td: (props) => <td className="border-b border-border/60 px-2 py-1" {...props} />,
+  th: (props) => <th className="text-left bg-muted/50 px-3 py-2 font-medium" {...props} />,
+  td: (props) => <td className="border-t border-border px-3 py-2" {...props} />,
 };

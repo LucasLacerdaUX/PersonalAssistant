@@ -1,25 +1,25 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google';
+import { Hanken_Grotesk, Bricolage_Grotesque, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
+import { MotionProvider } from '@/components/motion-provider';
 import { QueryProvider } from '@/lib/query-provider';
 import { Toaster } from '@/components/ui/sonner';
 import './globals.css';
 
-const sans = Inter({
-  variable: '--font-sans',
+const body = Hanken_Grotesk({
+  variable: '--font-hanken',
   subsets: ['latin'],
   display: 'swap',
 });
 
-const serif = Fraunces({
-  variable: '--font-serif',
+const display = Bricolage_Grotesque({
+  variable: '--font-bricolage',
   subsets: ['latin'],
   display: 'swap',
-  axes: ['SOFT', 'opsz'],
 });
 
-const mono = JetBrains_Mono({
-  variable: '--font-mono',
+const mono = Geist_Mono({
+  variable: '--font-geist-mono',
   subsets: ['latin'],
   display: 'swap',
 });
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fdf9f1' },
-    { media: '(prefers-color-scheme: dark)', color: '#1a1624' },
+    { media: '(prefers-color-scheme: light)', color: '#f7f9f4' },
+    { media: '(prefers-color-scheme: dark)', color: '#1b201d' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -46,7 +46,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${sans.variable} ${serif.variable} ${mono.variable} h-full`}
+      className={`${body.variable} ${display.variable} ${mono.variable} h-full`}
     >
       <body className="min-h-dvh flex flex-col">
         <ThemeProvider
@@ -55,10 +55,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <QueryProvider>
-            {children}
-            <Toaster position="top-center" richColors />
-          </QueryProvider>
+          <MotionProvider>
+            <QueryProvider>
+              {children}
+              <Toaster position="top-center" richColors />
+            </QueryProvider>
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>

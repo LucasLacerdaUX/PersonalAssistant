@@ -121,7 +121,7 @@ export function ItemDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="font-serif text-2xl font-normal">
+          <DialogTitle className="font-display text-2xl tracking-[-0.02em] font-medium">
             {editing ? 'Edit item' : 'Add to wishlist'}
           </DialogTitle>
           <DialogDescription>

@@ -13,19 +13,20 @@ import type { Tag } from '@/lib/supabase/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+// Garden palette — soft, cohesive accents that pair with the sage base.
 const palette = [
-  '#6366f1', // indigo
-  '#ec4899', // pink
-  '#22c55e', // emerald
-  '#f59e0b', // amber
-  '#06b6d4', // cyan
-  '#a855f7', // violet
-  '#ef4444', // red
-  '#f97316', // orange
-  '#84cc16', // lime
-  '#14b8a6', // teal
-  '#0ea5e9', // sky
-  '#d946ef', // fuchsia
+  '#7aa487', // sage
+  '#e8c06a', // butter
+  '#d88a6a', // clay
+  '#e69aa2', // rose
+  '#8698c9', // periwinkle
+  '#b08cc0', // lilac
+  '#7fa9c2', // sky
+  '#4f7c68', // moss
+  '#c46d6d', // terracotta
+  '#d9a27a', // apricot
+  '#8fb285', // fern
+  '#b39ad4', // wisteria
 ];
 
 export function TagEditor() {

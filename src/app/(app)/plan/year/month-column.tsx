@@ -9,6 +9,7 @@ import {
   useDeleteTask,
   useToggleTask,
 } from '@/lib/hooks/use-tasks';
+import type { NavAccent } from '@/lib/nav';
 import type { Tag, Task } from '@/lib/supabase/types';
 import { Input } from '@/components/ui/input';
 
@@ -21,6 +22,7 @@ export function MonthColumn({
   tagById,
   tags,
   queryKey,
+  accent,
 }: {
   label: string;
   monthStart: string;
@@ -28,6 +30,7 @@ export function MonthColumn({
   tagById: Map<string, Tag>;
   tags: Tag[];
   queryKey: QueryKey;
+  accent: NavAccent;
 }) {
   const [adding, setAdding] = useState(false);
   const [title, setTitle] = useState('');
@@ -50,13 +53,22 @@ export function MonthColumn({
   }
 
   return (
-    <div className="rounded-3xl border border-border/60 bg-card p-4 min-h-32 flex flex-col">
+    <div className="rounded-3xl bg-card ring-1 ring-foreground/[0.06] shadow-[var(--shadow-paper)] p-4 min-h-36 flex flex-col">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="font-serif text-lg leading-none">{label}</h3>
+        <div className="flex items-center gap-2">
+          <span
+            className={cn('chip', `chip-${accent}`)}
+            style={{ width: 8, height: 8, padding: 0, borderRadius: 999 }}
+            aria-hidden
+          />
+          <h3 className="font-display text-[17px] tracking-[-0.015em] leading-none">
+            {label}
+          </h3>
+        </div>
         <button
           onClick={() => setAdding(true)}
           aria-label={`Add theme for ${label}`}
-          className="size-7 grid place-items-center rounded-full hover:bg-muted/60 transition-colors text-muted-foreground"
+          className="size-7 grid place-items-center rounded-full hover:bg-muted transition-colors text-muted-foreground"
         >
           <Plus className="size-4" />
         </button>
@@ -75,7 +87,7 @@ export function MonthColumn({
         </AnimatePresence>
 
         {tasks.length === 0 && !adding && (
-          <li className="text-xs text-muted-foreground italic pt-1">
+          <li className="text-[12px] text-muted-foreground/80 italic pt-1">
             No themes yet.
           </li>
         )}
@@ -111,7 +123,7 @@ export function MonthColumn({
       {tags.length > 0 && tasks.length === 0 && !adding && (
         <button
           onClick={() => setAdding(true)}
-          className="mt-3 w-full text-left text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+          className="mt-3 w-full text-left text-[12px] text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
         >
           <Plus className="size-3" /> Add a theme
         </button>
@@ -140,17 +152,17 @@ function MonthTaskRow({
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -6 }}
-      className={cn('group flex items-start gap-2 text-sm', isTemp && 'opacity-70')}
+      className={cn('group flex items-start gap-2 text-[13.5px]', isTemp && 'opacity-70')}
     >
       <button
         onClick={() => !isTemp && toggle.mutate({ id: task.id, completed: !completed })}
         disabled={isTemp}
         aria-label={completed ? 'Mark incomplete' : 'Mark complete'}
         className={cn(
-          'mt-0.5 size-4 shrink-0 rounded-full border-2 transition-colors grid place-items-center',
+          'mt-0.5 size-4 shrink-0 rounded-full transition-colors grid place-items-center',
           completed
-            ? 'bg-primary border-primary text-primary-foreground'
-            : 'border-muted-foreground/40 hover:border-primary',
+            ? 'bg-primary text-primary-foreground'
+            : 'ring-[1.5px] ring-muted-foreground/30 hover:ring-primary',
         )}
       >
         {completed && <Check className="size-2.5" strokeWidth={3} />}

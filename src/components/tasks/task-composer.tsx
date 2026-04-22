@@ -56,14 +56,14 @@ export function TaskComposer({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col gap-2 rounded-2xl border border-border/60 bg-card p-2 shadow-sm"
+      className="flex flex-col gap-2 rounded-2xl bg-card p-2 ring-1 ring-foreground/[0.07] shadow-[var(--shadow-paper)] focus-within:ring-primary/40 focus-within:shadow-[var(--shadow-float)] transition-all"
     >
       <div className="flex items-center gap-2">
         <Input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder={placeholder ?? 'What needs to get done?'}
-          className="border-0 shadow-none focus-visible:ring-0 text-base"
+          className="border-0 shadow-none focus-visible:ring-0 text-[15px] bg-transparent"
         />
         <Button
           type="submit"
@@ -103,8 +103,8 @@ function TagPicker({
     <Popover>
       <PopoverTrigger
         className={cn(
-          'inline-flex items-center gap-1.5 text-xs rounded-full px-2.5 py-1 border border-border/60 hover:bg-muted/60 transition-colors bg-transparent',
-          activeTag && 'bg-muted',
+          'inline-flex items-center gap-1.5 text-[11.5px] rounded-full px-2.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors bg-transparent',
+          activeTag && 'bg-muted text-foreground',
         )}
       >
         {activeTag ? (
@@ -116,7 +116,7 @@ function TagPicker({
             {activeTag.name}
           </>
         ) : (
-          <span className="text-muted-foreground">+ Tag</span>
+          <span>+ tag</span>
         )}
       </PopoverTrigger>
       <PopoverContent className="w-56 p-1" align="start">
@@ -159,8 +159,8 @@ function ParentPicker({
     <Popover>
       <PopoverTrigger
         className={cn(
-          'inline-flex items-center gap-1.5 text-xs rounded-full px-2.5 py-1 border border-border/60 hover:bg-muted/60 transition-colors bg-transparent',
-          activeParent && 'bg-muted',
+          'inline-flex items-center gap-1.5 text-[11.5px] rounded-full px-2.5 py-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors bg-transparent',
+          activeParent && 'bg-muted text-foreground',
         )}
       >
         {activeParent ? (
@@ -171,7 +171,7 @@ function ParentPicker({
             </span>
           </>
         ) : (
-          <span className="text-muted-foreground">+ Parent goal</span>
+          <span>+ parent goal</span>
         )}
       </PopoverTrigger>
       <PopoverContent className="w-64 p-1" align="start">

@@ -42,10 +42,10 @@ export function TaskRow({
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -12 }}
-      transition={{ duration: 0.18 }}
+      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        'group relative flex items-start gap-3 rounded-2xl border border-border/60 bg-card px-4 py-3 shadow-sm transition-colors',
-        completed && 'bg-muted/40',
+        'group relative flex items-start gap-3 rounded-2xl bg-card px-3.5 py-3 ring-1 ring-foreground/[0.06] shadow-[var(--shadow-paper)] transition-colors',
+        completed && 'bg-muted/50 ring-transparent shadow-none',
         isTemp && 'opacity-70',
       )}
     >
@@ -54,10 +54,10 @@ export function TaskRow({
         disabled={isTemp}
         aria-label={completed ? 'Mark incomplete' : 'Mark complete'}
         className={cn(
-          'relative mt-0.5 size-5 shrink-0 rounded-full border-2 transition-colors grid place-items-center',
+          'relative mt-[1px] size-5 shrink-0 rounded-full transition-all grid place-items-center',
           completed
-            ? 'bg-primary border-primary text-primary-foreground'
-            : 'border-muted-foreground/40 hover:border-primary',
+            ? 'bg-primary text-primary-foreground shadow-[0_2px_6px_color-mix(in_oklch,var(--primary)_40%,transparent)]'
+            : 'ring-[1.5px] ring-muted-foreground/30 hover:ring-primary hover:ring-[2px]',
         )}
       >
         <AnimatePresence>
@@ -77,29 +77,31 @@ export function TaskRow({
       <div className="flex-1 min-w-0">
         <p
           className={cn(
-            'text-sm leading-snug',
+            'text-[14.5px] leading-snug',
             completed && 'line-through text-muted-foreground',
           )}
         >
           {task.title}
         </p>
-        <div className="flex flex-wrap items-center gap-2 mt-1 text-[11px] text-muted-foreground">
-          {tag && (
-            <span className="inline-flex items-center gap-1">
-              <span
-                className="size-2 rounded-full"
-                style={{ background: tag.color }}
-              />
-              {tag.name}
-            </span>
-          )}
-          {parentTitle && (
-            <span className="inline-flex items-center gap-1">
-              <span className="text-muted-foreground/60">↳</span>
-              {parentTitle}
-            </span>
-          )}
-        </div>
+        {(tag || parentTitle) && (
+          <div className="flex flex-wrap items-center gap-2 mt-1.5 text-[11px] text-muted-foreground">
+            {tag && (
+              <span className="inline-flex items-center gap-1.5">
+                <span
+                  className="size-2 rounded-full"
+                  style={{ background: tag.color }}
+                />
+                {tag.name}
+              </span>
+            )}
+            {parentTitle && (
+              <span className="inline-flex items-center gap-1">
+                <span className="text-muted-foreground/50">↳</span>
+                {parentTitle}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       <Button

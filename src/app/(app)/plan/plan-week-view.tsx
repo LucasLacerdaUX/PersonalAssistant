@@ -55,26 +55,27 @@ export function PlanWeekView({ selectedFromUrl }: { selectedFromUrl?: string }) 
   const queryKey = qk.tasks('weekly', selected);
 
   return (
-    <div className="px-4 md:px-8 pb-8 max-w-2xl w-full mx-auto md:mx-0 space-y-4">
+    <div className="px-4 md:px-8 pb-20 md:pb-10 max-w-2xl w-full mx-auto md:mx-0 space-y-5">
       <div className="flex items-center justify-between">
         <Link
           href={{ pathname: '/plan', query: { w: prev } }}
-          className="size-9 grid place-items-center rounded-full border border-border/60 hover:bg-muted/60 transition-colors"
+          className="size-9 grid place-items-center rounded-full bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
           aria-label="Previous week"
         >
           <ChevronLeft className="size-4" />
         </Link>
         <div className="text-center">
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground">
-            Week of
+          <p className="text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground mb-1">
+            week of
           </p>
-          <p className="font-serif text-xl">
-            {format(weekStart, 'MMM d')} – {format(weekEnd, 'MMM d')}
+          <p className="font-display text-[19px] tracking-[-0.02em] leading-none">
+            {format(weekStart, 'MMM d')} <span className="text-muted-foreground">—</span>{' '}
+            {format(weekEnd, 'MMM d')}
           </p>
         </div>
         <Link
           href={{ pathname: '/plan', query: { w: next } }}
-          className="size-9 grid place-items-center rounded-full border border-border/60 hover:bg-muted/60 transition-colors"
+          className="size-9 grid place-items-center rounded-full bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
           aria-label="Next week"
         >
           <ChevronRight className="size-4" />
@@ -91,12 +92,12 @@ export function PlanWeekView({ selectedFromUrl }: { selectedFromUrl?: string }) 
       />
 
       {tasks.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border/60 py-10 text-center dot-grid">
-          <p className="font-serif text-lg">
-            {tasksQuery.isLoading ? 'Loading…' : 'Nothing yet for this week.'}
+        <div className="rounded-2xl py-14 px-6 text-center paper-dots bg-muted/30">
+          <p className="font-display text-[20px] tracking-[-0.02em]">
+            {tasksQuery.isLoading ? 'Loading…' : 'A blank week.'}
           </p>
           {!tasksQuery.isLoading && (
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="text-[13px] text-muted-foreground mt-1.5 max-w-[32ch] mx-auto">
               Add one or two big things you want to land before Sunday.
             </p>
           )}

@@ -9,7 +9,8 @@ export default function PlanLayout({
   return (
     <div className="flex flex-col">
       <PageHeader
-        title="Plan"
+        eyebrow="Plan"
+        title="Shape your seasons."
         subtitle="Weekly focus and yearly themes."
         actions={<PlanTabs />}
       />

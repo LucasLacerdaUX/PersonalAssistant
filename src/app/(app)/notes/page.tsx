@@ -9,7 +9,11 @@ export default async function NotesPage({
   const { id, q } = await searchParams;
   return (
     <div className="flex flex-col h-full">
-      <PageHeader title="Notes" subtitle="Random ideas, unpolished." />
+      <PageHeader
+        eyebrow="Notes"
+        title="Think out loud."
+        subtitle="Drafts, scraps, half-formed ideas."
+      />
       <NotesLayout selectedId={id} query={q ?? ''} />
     </div>
   );

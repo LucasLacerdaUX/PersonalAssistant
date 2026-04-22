@@ -13,26 +13,27 @@ export default async function SettingsPage() {
   return (
     <div className="flex flex-col">
       <PageHeader
-        title="Settings"
-        subtitle="Tweak your tags, preferences, and account."
+        eyebrow="Settings"
+        title="Preferences."
+        subtitle="Tweak your tags, display, and account."
       />
-      <div className="px-4 md:px-8 pb-8 space-y-8 max-w-2xl w-full mx-auto md:mx-0">
+      <div className="px-4 md:px-8 pb-20 md:pb-10 space-y-6 max-w-2xl w-full mx-auto md:mx-0">
         <Section
           title="Tags"
-          description="Tags apply across tasks, wishlist items, and notes. One tag per item."
+          description="Tags apply across tasks, wishlist, and notes. One per item."
         >
           <TagEditor />
         </Section>
 
         <Section
           title="Display currency"
-          description="The currency we convert wishlist prices into when showing totals."
+          description="The currency we convert prices into when showing totals."
         >
           <DisplayCurrency />
         </Section>
 
         <Section title="Account" description={email}>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-[13.5px] text-muted-foreground">
             Sign out from the avatar menu.
           </p>
         </Section>
@@ -51,11 +52,13 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-border/60 bg-card p-5 md:p-6 space-y-4">
+    <section className="rounded-3xl bg-card p-5 md:p-7 ring-1 ring-foreground/[0.06] shadow-[var(--shadow-paper)] space-y-4">
       <header>
-        <h2 className="font-serif text-xl">{title}</h2>
+        <h2 className="font-display text-[20px] tracking-[-0.02em] font-medium">
+          {title}
+        </h2>
         {description && (
-          <p className="text-sm text-muted-foreground mt-0.5">{description}</p>
+          <p className="text-[13px] text-muted-foreground mt-1">{description}</p>
         )}
       </header>
       {children}

@@ -15,6 +15,7 @@ import {
   useTasks,
 } from '@/lib/hooks/use-tasks';
 import { useTags } from '@/lib/hooks/use-tags';
+import { EmptyDoodle } from '@/components/shell/empty-doodle';
 
 export function TodayView({ selectedFromUrl }: { selectedFromUrl?: string }) {
   const selected = selectedFromUrl || todayYMD();
@@ -46,15 +47,18 @@ export function TodayView({ selectedFromUrl }: { selectedFromUrl?: string }) {
   const isToday = selected === todayYMD();
   const queryKey = qk.tasks('daily', selected);
 
+  const completed = tasks.filter((t) => t.completed).length;
+
   return (
     <div className="flex flex-col">
       <PageHeader
-        title={isToday ? 'Today' : friendlyDate}
-        subtitle={isToday ? friendlyDate : undefined}
+        eyebrow={isToday ? 'Today' : format(date, 'EEEE')}
+        title={isToday ? greet() : format(date, 'MMMM d')}
+        subtitle={isToday ? friendlyDate : format(date, 'yyyy')}
       />
       <DayNavigator selectedYMD={selected} />
 
-      <section className="px-4 md:px-8 pb-8 space-y-3 max-w-2xl w-full mx-auto md:mx-0">
+      <section className="px-4 md:px-8 pb-20 md:pb-10 space-y-3 max-w-2xl w-full mx-auto md:mx-0">
         <TaskComposer
           timeframe="daily"
           periodStart={selected}
@@ -63,6 +67,15 @@ export function TodayView({ selectedFromUrl }: { selectedFromUrl?: string }) {
           queryKey={queryKey}
           placeholder="What do you want to do today?"
         />
+
+        {tasks.length > 0 && (
+          <div className="flex items-center justify-between px-1 pt-1">
+            <p className="text-[11.5px] text-muted-foreground tracking-tight">
+              {completed} of {tasks.length} done
+            </p>
+            <Progress value={completed} total={tasks.length} />
+          </div>
+        )}
 
         {tasks.length === 0 ? (
           <EmptyState isToday={isToday} loading={tasksQuery.isLoading} />
@@ -88,6 +101,27 @@ export function TodayView({ selectedFromUrl }: { selectedFromUrl?: string }) {
   );
 }
 
+function greet() {
+  const hour = new Date().getHours();
+  if (hour < 5) return 'Still up?';
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  if (hour < 21) return 'Good evening';
+  return 'Winding down';
+}
+
+function Progress({ value, total }: { value: number; total: number }) {
+  const pct = total === 0 ? 0 : (value / total) * 100;
+  return (
+    <div className="h-1 w-24 rounded-full bg-muted overflow-hidden">
+      <div
+        className="h-full rounded-full bg-primary transition-[width] duration-500"
+        style={{ width: `${pct}%` }}
+      />
+    </div>
+  );
+}
+
 function EmptyState({
   isToday,
   loading,
@@ -97,20 +131,21 @@ function EmptyState({
 }) {
   if (loading) {
     return (
-      <div className="rounded-2xl border border-dashed border-border/60 py-10 text-center dot-grid">
+      <div className="rounded-2xl py-12 text-center paper-dots bg-muted/30">
         <p className="text-sm text-muted-foreground">Loading…</p>
       </div>
     );
   }
   return (
-    <div className="rounded-2xl border border-dashed border-border/60 py-10 text-center dot-grid">
-      <p className="font-serif text-lg">
-        {isToday ? 'Nothing queued up.' : 'Nothing here.'}
+    <div className="rounded-2xl py-12 px-6 text-center paper-dots bg-muted/30">
+      <EmptyDoodle className="mx-auto mb-3 w-28 text-primary/70" />
+      <p className="font-display text-[22px] tracking-[-0.02em] leading-tight">
+        {isToday ? 'Nothing queued up.' : 'A quiet day.'}
       </p>
-      <p className="text-sm text-muted-foreground mt-1">
+      <p className="text-[13px] text-muted-foreground mt-1.5 max-w-[30ch] mx-auto">
         {isToday
-          ? 'Type above to capture your first task of the day.'
-          : 'Either it was a quiet day, or nothing was planned.'}
+          ? 'Type above to capture the first thing on your mind.'
+          : 'Either nothing was planned, or nothing made the cut.'}
       </p>
     </div>
   );

@@ -1,8 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { LogOut, Moon, Settings, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { LogOut, Settings } from 'lucide-react';
 import { getSupabaseBrowser } from '@/lib/supabase/browser';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -24,7 +23,6 @@ export function UserMenu({
   compact?: boolean;
 }) {
   const router = useRouter();
-  const { resolvedTheme, setTheme } = useTheme();
 
   async function signOut() {
     const supabase = getSupabaseBrowser();
@@ -75,19 +73,6 @@ export function UserMenu({
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push('/settings')}>
           <Settings className="size-4" /> Settings
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={(e) => {
-            e.preventDefault();
-            setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
-          }}
-        >
-          {resolvedTheme === 'dark' ? (
-            <Sun className="size-4" />
-          ) : (
-            <Moon className="size-4" />
-          )}
-          {resolvedTheme === 'dark' ? 'Light mode' : 'Dark mode'}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={signOut} className="text-destructive focus:text-destructive">
